@@ -1,6 +1,6 @@
-gangster:
-  - display_name: Gangster
-  - color: red
-outlaw:
-  - display_name: Outlaw
-  - color: blue
+-
+  display_name: Gangster
+  color: red
+-
+  display_name: Outlaw
+  color: blue
