@@ -1,0 +1,6 @@
+gangster:
+  - display_name: Gangster
+  - color: red
+outlaw:
+  - display_name: Outlaw
+  - color: blue
