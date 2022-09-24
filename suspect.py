@@ -5,6 +5,7 @@ class Suspect:
         self.murderer = False
         self.weapon = None
 
-#suspects = []
-#for suspect_config in suspects_config:
-#    suspects.append(Suspect(**suspect_config))
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        namespace = str(self.__dict__)
+        return class_name + ": " + namespace
