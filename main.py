@@ -4,7 +4,7 @@ def main():
     print()
     game = GameManager()
 
-    game.present_suspects()
+    # game.present_suspects()
     #game.present_weapons()
     #game.get_attributes('suspects', 'weapon')
     #for suspect in game.suspects:

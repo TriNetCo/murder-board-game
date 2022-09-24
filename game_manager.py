@@ -9,6 +9,7 @@ class GameManager():
 
     def reset(self, seed: int = None):
         self.game_config = self._load_config("game")
+        self.suspect_draw_count = self.game_config["suspect_draw_count"]
 
         if self.game_config['seed'] == "random":
             seed = random.random()
@@ -22,16 +23,32 @@ class GameManager():
         self.suspects = self._init_suspects()
         self.weapons_config = self._load_config("weapons")
         self._generate_evidence()
+        self._assign_murderer()
 
+    def _assign_murderer(self):
+        murderer_index = random.randrange(self.suspect_draw_count)
+        self.suspects[murderer_index].murderer = True
 
-
-    def _load_config(self, name):
+    def _load_config(self, name: str) -> dict:
         with open("configs/{}.yml".format(name), "r") as stream:
             try:
                 return yaml.safe_load(stream)
             except yaml.YAMLError as exc:
                 print(exc)
                 return None
+
+    def _init_from_config(self, config: dict) -> list:
+        """
+        Not used
+        """
+        item_list = []
+        item_class = getattr(sys.modules[__name__], config['class_name'])
+        print(item_class)
+        for item_config in config['item_list']:
+            item_list.append(item_class(**item_config))
+
+    def _select_suspect_draw_count_random_items(self, item_list):
+        return random.sample(item_list, self.suspect_draw_count)
 
     def _init_suspects(self):
         suspects = []
