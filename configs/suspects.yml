@@ -1,6 +1,12 @@
 -
   display_name: Gangster
-  color: red
+  location: New York
 -
   display_name: Outlaw
-  color: blue
+  location: Virginia
+-
+  display_name: Kona
+  location: Texas
+-
+  display_name: Bartender
+  location: New York
