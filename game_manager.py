@@ -23,19 +23,16 @@ class GameManager(PresentationMixin, ConfigurationMixin):
         random.seed(self.seed)
 
         suspects_pool = self._init_from_config("suspects")
-        self.suspects = self._select_n_random_items(suspects_pool, self.suspect_draw_count)
+        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
         self._generate_evidence()
         self._assign_murderer()
                 
-    def _select_n_random_items(self, items, n):
-        return random.sample(items, n)
-
     def _generate_evidence(self):
         weapons_pool = self._init_from_config("weapons")
         self._assign_random_evidence("weapon", weapons_pool)
 
     def _assign_random_evidence(self, evidence_type: str, items: list):
-        random_items = self._select_n_random_items(items, self.suspect_draw_count)
+        random_items = random.sample(items, self.suspect_draw_count)
         for i in range(self.suspect_draw_count):
             setattr(self.suspects[i], evidence_type, random_items[i])
 
