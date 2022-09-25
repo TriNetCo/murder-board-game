@@ -2,6 +2,7 @@ import random
 import sys
 
 from suspect import Suspect
+from evidence import Evidence
 from presentation_mixin import PresentationMixin
 from configuration_mixin import ConfigurationMixin
 
@@ -14,61 +15,27 @@ class GameManager(PresentationMixin, ConfigurationMixin):
         self.game_config = self._load_config("game")
         self.suspect_draw_count = self.game_config["suspect_draw_count"]
 
-        if self.game_config['seed'] == "random":
-            seed = random.random()
-
-        self.suspects_config = self._load_config("suspects")
-        self.weapons_config = self._load_config("weapons")
-        self.suspects = self._init_suspects()
-
         if seed is None:
             seed = self.game_config['seed']
+        if seed == "random":
+            seed = random.random()
         self.seed = seed or random.random()
         random.seed(self.seed)
 
+        suspects_pool = self._init_from_config("suspects")
+        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
         self._generate_evidence()
         self._assign_murderer()
+                
+    def _generate_evidence(self):
+        weapons_pool = self._init_from_config("weapons")
+        self._assign_random_evidence("weapon", weapons_pool)
+
+    def _assign_random_evidence(self, evidence_type: str, items: list):
+        random_items = random.sample(items, self.suspect_draw_count)
+        for i in range(self.suspect_draw_count):
+            setattr(self.suspects[i], evidence_type, random_items[i])
 
     def _assign_murderer(self):
         murderer_index = random.randrange(self.suspect_draw_count)
         self.suspects[murderer_index].murderer = True
-
-    def _init_from_config(self, config: dict) -> list:
-        """
-        Not used
-        """
-        item_list = []
-        item_class = getattr(sys.modules[__name__], config['class_name'])
-        print(item_class)
-        for item_config in config['item_list']:
-            item_list.append(item_class(**item_config))
-
-    def _select_suspect_draw_count_random_items(self, item_list):
-        return random.sample(item_list, self.suspect_draw_count)
-
-    def _init_suspects(self):
-        suspects = []
-        if self.suspect_draw_count > len(self.suspects_config):
-            msg = "Error: suspect_draw_count was set to {} but only {} suspects are defined in the suspect yaml.".format(self.suspect_draw_count, len(self.suspects_config))
-            sys.exit(msg)
-
-        # 4 possible suspects in self.suspects_config list
-        # suspect_count is 3
-        # random list e.g. [1, 0, 3, 2]
-        # iterate through first 3 elements of random list
-
-        # shuffle_suspect_list_from_config
-        suspect_pool_count = len(self.suspects_config)
-        shuffled_suspect_range = random.sample(range(suspect_pool_count), suspect_pool_count)
-        
-        # pick_n_suspects_to_put_into_play(4)
-        for i in range(self.suspect_draw_count):
-            suspect_config = self.suspects_config[shuffled_suspect_range[i]]
-            suspects.append(Suspect(**suspect_config))
-        return suspects
-
-    def _generate_evidence(self):
-        suspect_draw_count = self.suspect_draw_count
-        random_weapons = random.sample(self.weapons_config, suspect_draw_count)
-        for i in range(suspect_draw_count):
-            self.suspects[i].weapon = random_weapons[i]
