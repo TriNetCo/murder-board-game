@@ -1,4 +1,5 @@
 import random
+import sys
 
 from suspect import Suspect
 from presentation_mixin import PresentationMixin
@@ -47,7 +48,10 @@ class GameManager(PresentationMixin, ConfigurationMixin):
 
     def _init_suspects(self):
         suspects = []
-        self.suspect_draw_count = min(len(self.suspects_config), self.suspect_draw_count)
+        if self.suspect_draw_count > len(self.suspects_config):
+            msg = "Error: suspect_draw_count was set to {} but only {} suspects are defined in the suspect yaml.".format(self.suspect_draw_count, len(self.suspects_config))
+            sys.exit(msg)
+
         # 4 possible suspects in self.suspects_config list
         # suspect_count is 3
         # random list e.g. [1, 0, 3, 2]
