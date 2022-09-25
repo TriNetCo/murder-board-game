@@ -1,12 +1,14 @@
--
-  display_name: Gangster
-  location: New York
--
-  display_name: Outlaw
-  location: Virginia
--
-  display_name: Kona
-  location: Texas
--
-  display_name: Bartender
-  location: New York
+class_name: Suspect
+item_list:
+  -
+    display_name: Gangster
+    location: New York
+  -
+    display_name: Outlaw
+    location: Virginia
+  -
+    display_name: Kona
+    location: Texas
+  -
+    display_name: Bartender
+    location: New York

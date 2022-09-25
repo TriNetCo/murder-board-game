@@ -1,8 +1,10 @@
--
-  display_name: Fish
--
-  display_name: Shovel
--
-  display_name: Socks
--
-  display_name: Rope
+class_name: Evidence
+item_list:
+  -
+    display_name: Fish
+  -
+    display_name: Shovel
+  -
+    display_name: Socks
+  -
+    display_name: Rope
