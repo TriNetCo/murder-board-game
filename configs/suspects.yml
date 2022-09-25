@@ -1,5 +1,5 @@
 class_name: Suspect
-item_list:
+items:
   -
     display_name: Gangster
     location: New York

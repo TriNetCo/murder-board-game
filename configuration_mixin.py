@@ -1,5 +1,6 @@
 import yaml
 import sys
+# TODO import Suspect, Evidence dynamically
 from suspect import Suspect
 from evidence import Evidence
 
@@ -20,11 +21,16 @@ class ConfigurationMixin():
 
     def _init_from_config(self, name: str) -> list:
         """
+        Loads config from YAML and instantiates list of objects based on
+        class_name specified in YAML
         """
         config = self._load_config(name)
-        assert 'class_name' in config and 'item_list' in config, "{}.yml must have class_name and item_list".format(name)
+        assert 'class_name' in config and 'items' in config, "{}.yml must have class_name and items".format(name)
         class_name = config['class_name']
-        assert hasattr(sys.modules[__name__], class_name), "{} not found in namespace".format(class_name)
-        item_class = getattr(sys.modules[__name__], class_name)
-        item_list = [item_class(**item_config) for item_config in config['item_list']]
-        return item_list
+
+        current_namespace = sys.modules[__name__]
+        cls = getattr(current_namespace, class_name)
+        items = [cls(**item_config) for item_config in config['items']]
+
+        return items
+
