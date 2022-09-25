@@ -96,6 +96,28 @@ class GameManager():
         for item in items:
             print("  " + item)
         print()
+
+    def present_all_game_information(self):
+        print("Suspects: ")
+        for suspect in self.suspects:
+            name = suspect.display_name
+            murder_note = " (Murderer)" if suspect.murderer else ""
+            weapon = suspect.weapon["display_name"]
+
+            info_line = "  "
+            info_line += name
+            info_line += murder_note
+            info_line += " - " + weapon
+            print(info_line)
+        print()
+
+        print("Board:")
+
+        print(" A  B  C  D  ")
+        print(" 3  4  6  2")
+        print(" 9  6  5  7")
+        print(" 4  2  3  9")
+        print(" 7  5  8  4")
         
     """
     def __getattr__(self, name):
