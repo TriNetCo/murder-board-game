@@ -6,6 +6,7 @@ def main():
 
     game.present_all_game_information()
     # [print(suspect) for suspect in game.suspects]
+    # print(yaml.dump(game.suspects))
 
     repl(game)
 
