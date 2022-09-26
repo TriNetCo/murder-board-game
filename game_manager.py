@@ -8,26 +8,33 @@ from configuration_utils import load_config, init_from_config
 from debug_mixin import DebugMixin
 
 class GameManager(PresentationMixin, DebugMixin):
-    def __init__(self, seed: int = None):
+    def __init__(self, new_seed: int = None):
         super().__init__()
-        self.reset(seed)
+        self.reset(new_seed)
 
-    def reset(self, seed: int = None):
-        self.game_config = load_config("configs/game.yml")
-        self.suspect_draw_count = self.game_config["suspect_draw_count"]
-
-        if seed is None:
-            seed = self.game_config['seed']
-        if seed == "random":
-            seed = random.random()
-        self.seed = seed or random.random()
-        random.seed(self.seed)
-
-        suspects_pool = init_from_config("configs/suspects.yml")
-        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
+    def reset(self, new_seed: int = None):
+        self._load_game_config()
+        self._assign_seed(new_seed)
+        self._generate_suspects()
         self._generate_evidence()
         self._assign_murderer()
-                
+
+    def _load_game_config(self):
+        self.game_config = load_config("configs/game.yml")
+        for k, v in self.game_config.items():
+            setattr(self, k, v)
+
+    def _assign_seed(self, new_seed):
+        if new_seed:
+            self.seed = new_seed
+        if self.seed == "random":
+            self.seed = random.random()
+        random.seed(self.seed)
+
+    def _generate_suspects(self):
+        suspects_pool = init_from_config("configs/suspects.yml")
+        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
+
     def _generate_evidence(self):
         weapons_pool = init_from_config("configs/weapons.yml")
         self._assign_random_evidence("weapon", weapons_pool)
