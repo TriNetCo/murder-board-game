@@ -8,3 +8,5 @@ items:
     display_name: Socks
   -
     display_name: Rope
+universal_attributes:
+  type: weapon

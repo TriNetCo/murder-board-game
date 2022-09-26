@@ -15,17 +15,29 @@ def load_config(filename: str) -> dict:
             print(exc)
             return None
 
+def _get_class_from_config(config):
+    assert 'class_name' in config, "YAML must contain field class_name"
+    class_name = config['class_name']
+    current_namespace = sys.modules[__name__]
+    cls = getattr(current_namespace, class_name)
+    return cls
+
+def _get_item_configs_from_config(config) -> list:
+    assert 'items' in config, "YAML must contain field items"
+    item_configs = config['items']
+    # returns empty dict if no universal_attributes in config
+    universal_attributes_config = config.get('universal_attributes', {})
+    # combines universal_attributes and item config, item config takes precedence
+    item_configs = [{**universal_attributes_config, **item_config} for item_config in item_configs]
+    return item_configs
+
 def init_from_config(filename: str) -> list:
     """
     Loads config from YAML and instantiates list of objects based on
     class_name specified in YAML
     """
     config = load_config(filename)
-    assert 'class_name' in config and 'items' in config, "{}.yml must have class_name and items".format(filename)
-    class_name = config['class_name']
-
-    current_namespace = sys.modules[__name__]
-    cls = getattr(current_namespace, class_name)
-    items = [cls(**item_config) for item_config in config['items']]
-
+    cls = _get_class_from_config(config)
+    item_configs = _get_item_configs_from_config(config)
+    items = [cls(**item_config) for item_config in item_configs]
     return items

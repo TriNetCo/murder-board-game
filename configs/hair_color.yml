@@ -8,3 +8,5 @@ items:
     display_name: Blonde
   -
     display_name: Black
+universal_attributes:
+  type: hair_color
