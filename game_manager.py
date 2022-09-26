@@ -4,15 +4,16 @@ import sys
 from suspect import Suspect
 from evidence import Evidence
 from presentation_mixin import PresentationMixin
-from configuration_mixin import ConfigurationMixin
+from configuration_utils import load_config, init_from_config
+from debug_mixin import DebugMixin
 
-class GameManager(PresentationMixin, ConfigurationMixin):
+class GameManager(PresentationMixin, DebugMixin):
     def __init__(self, seed: int = None):
         super().__init__()
         self.reset(seed)
 
     def reset(self, seed: int = None):
-        self.game_config = self._load_config("game")
+        self.game_config = load_config("game")
         self.suspect_draw_count = self.game_config["suspect_draw_count"]
 
         if seed is None:
@@ -22,13 +23,13 @@ class GameManager(PresentationMixin, ConfigurationMixin):
         self.seed = seed or random.random()
         random.seed(self.seed)
 
-        suspects_pool = self._init_from_config("suspects")
+        suspects_pool = init_from_config("suspects")
         self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
         self._generate_evidence()
         self._assign_murderer()
                 
     def _generate_evidence(self):
-        weapons_pool = self._init_from_config("weapons")
+        weapons_pool = init_from_config("weapons")
         self._assign_random_evidence("weapon", weapons_pool)
 
     def _assign_random_evidence(self, evidence_type: str, items: list):
