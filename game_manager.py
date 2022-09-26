@@ -1,8 +1,5 @@
 import random
-import sys
 
-from suspect import Suspect
-from evidence import Evidence
 from presentation_mixin import PresentationMixin
 from configuration_utils import load_config, init_from_config
 from debug_mixin import DebugMixin
@@ -39,7 +36,7 @@ class GameManager(PresentationMixin, DebugMixin):
         weapons_pool = init_from_config("configs/weapons.yml")
         self._assign_random_evidence("weapon", weapons_pool)
         hair_color_pool = init_from_config("configs/hair_color.yml")
-        self._assign_random_evidence("hair", hair_color_pool)
+        self._assign_random_evidence("hair_color", hair_color_pool)
 
     def _assign_random_evidence(self, evidence_type: str, items: list):
         random_items = random.sample(items, self.suspect_draw_count)

@@ -21,7 +21,7 @@ def init_from_config(filename: str) -> list:
     class_name specified in YAML
     """
     config = load_config(filename)
-    assert 'class_name' in config and 'items' in config, "{}.yml must have class_name and items".format(name)
+    assert 'class_name' in config and 'items' in config, "{}.yml must have class_name and items".format(filename)
     class_name = config['class_name']
 
     current_namespace = sys.modules[__name__]
