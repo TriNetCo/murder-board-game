@@ -31,6 +31,8 @@ class GameManager(PresentationMixin, DebugMixin):
     def _generate_evidence(self):
         weapons_pool = init_from_config("weapons")
         self._assign_random_evidence("weapon", weapons_pool)
+        hair_color_pool = init_from_config("hair_color")
+        self._assign_random_evidence("hair", hair_color_pool)
 
     def _assign_random_evidence(self, evidence_type: str, items: list):
         random_items = random.sample(items, self.suspect_draw_count)

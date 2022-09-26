@@ -6,3 +6,4 @@ class Suspect(DebugMixin):
         self.location = location
         self.murderer = False
         self.weapon = None
+        self.hair_color = None

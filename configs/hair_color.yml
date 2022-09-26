@@ -1,0 +1,10 @@
+class_name: Evidence
+items:
+  -
+    display_name: Red
+  -
+    display_name: Brown
+  -
+    display_name: Blonde
+  -
+    display_name: Black
