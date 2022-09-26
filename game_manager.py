@@ -18,8 +18,15 @@ class GameManager(PresentationMixin, DebugMixin):
 
     def guess(self, target):
         print("You guessed " + target)
+        if target in [suspect.display_name for suspect in self.suspects if suspect.murderer is True]:
+            print (target + " is the murderer")
+        elif target in [suspect.display_name for suspect in self.suspects]:
+            print (target + " is not the murderer")
+        else:
+            print(target + " is not a suspect")
 
     def skip(self):
+        # deal another hand
         print("You skipped your turn ")
 
     def _load_game_config(self):

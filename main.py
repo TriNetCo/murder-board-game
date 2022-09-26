@@ -15,7 +15,7 @@ def repl(game):
         print("Ready Player 1")
 
         raw_input = input()
-        # print("You said: " + raw_input)
+        # prihnt("You said: " + raw_input)
 
         command = raw_input[0]
         # print("Command: " + command)
@@ -36,11 +36,6 @@ def repl(game):
         if command == 'q':
             print("Goodbye")
             return
-
-        
-
-
-
 
 if __name__ == "__main__":
     main()
