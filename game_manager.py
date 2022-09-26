@@ -16,6 +16,12 @@ class GameManager(PresentationMixin, DebugMixin):
         self._generate_evidence()
         self._assign_murderer()
 
+    def guess(self, target):
+        print("You guessed " + target)
+
+    def skip(self):
+        print("You skipped your turn ")
+
     def _load_game_config(self):
         self.game_config = load_config("configs/game.yml")
         for k, v in self.game_config.items():
