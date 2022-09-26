@@ -13,7 +13,7 @@ class GameManager(PresentationMixin, DebugMixin):
         self.reset(seed)
 
     def reset(self, seed: int = None):
-        self.game_config = load_config("game")
+        self.game_config = load_config("configs/game.yml")
         self.suspect_draw_count = self.game_config["suspect_draw_count"]
 
         if seed is None:
@@ -23,15 +23,15 @@ class GameManager(PresentationMixin, DebugMixin):
         self.seed = seed or random.random()
         random.seed(self.seed)
 
-        suspects_pool = init_from_config("suspects")
+        suspects_pool = init_from_config("configs/suspects.yml")
         self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
         self._generate_evidence()
         self._assign_murderer()
                 
     def _generate_evidence(self):
-        weapons_pool = init_from_config("weapons")
+        weapons_pool = init_from_config("configs/weapons.yml")
         self._assign_random_evidence("weapon", weapons_pool)
-        hair_color_pool = init_from_config("hair_color")
+        hair_color_pool = init_from_config("configs/hair_color.yml")
         self._assign_random_evidence("hair", hair_color_pool)
 
     def _assign_random_evidence(self, evidence_type: str, items: list):

@@ -4,23 +4,23 @@ import sys
 from suspect import Suspect
 from evidence import Evidence
 
-def load_config(name: str) -> dict:
+def load_config(filename: str) -> dict:
     """
     Loads data from a yml given the name.yml
     """
-    with open("configs/{}.yml".format(name), "r") as stream:
+    with open(filename, "r") as stream:
         try:
             return yaml.safe_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
             return None
 
-def init_from_config(name: str) -> list:
+def init_from_config(filename: str) -> list:
     """
     Loads config from YAML and instantiates list of objects based on
     class_name specified in YAML
     """
-    config = load_config(name)
+    config = load_config(filename)
     assert 'class_name' in config and 'items' in config, "{}.yml must have class_name and items".format(name)
     class_name = config['class_name']
 
