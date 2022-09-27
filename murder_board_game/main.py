@@ -1,9 +1,9 @@
-from game_manager import GameManager
+from game import Game
 import yaml
 
 def main():
     print()
-    game = GameManager()
+    game = Game()
 
     game.present_all_game_information()
     # [print(suspect) for suspect in game.suspects]
@@ -16,7 +16,7 @@ def repl(game):
         print("Ready Player 1")
 
         raw_input = input()
-        # prihnt("You said: " + raw_input)
+        # print("You said: " + raw_input)
 
         command = raw_input[0]
         # print("Command: " + command)

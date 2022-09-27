@@ -5,7 +5,7 @@ from presentation_mixin import PresentationMixin
 from configuration_utils import load_config, init_from_config
 from debug_mixin import DebugMixin
 
-class GameManager(PresentationMixin, DebugMixin):
+class Game(PresentationMixin, DebugMixin):
     def __init__(self, new_seed: int = None):
         super().__init__()
         self.reset(new_seed)
