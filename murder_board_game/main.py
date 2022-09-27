@@ -5,11 +5,11 @@ def main():
     print()
     game = GameManager()
 
-    # game.present_all_game_information()
+    game.present_all_game_information()
     # [print(suspect) for suspect in game.suspects]
     # print(yaml.dump(game.suspects))
-    print(yaml.dump(game.evidence_deck))
-    # repl(game)
+    # print(yaml.dump(game.evidence_deck))
+    repl(game)
 
 def repl(game):
     while(True):
