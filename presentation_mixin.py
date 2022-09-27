@@ -7,7 +7,7 @@ class PresentationMixin():
         for suspect in self.suspects:
             name = suspect.display_name
             murder_note = " (Murderer)" if suspect.murderer else ""
-            weapon = suspect.weapon.display_name
+            weapon = suspect.suspect_evidence.weapon.display_name
 
             info_line = "  "
             info_line += name
