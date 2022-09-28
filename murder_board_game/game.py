@@ -9,6 +9,8 @@ class Game(PresentationMixin, DebugMixin):
         super().__init__()
 
     def reset(self, new_seed: int = None):
+        self.player_count = 3
+        self.current_player = 0
         self._assign_seed(new_seed)
         self._assign_suspects()
         self._assign_evidence()
@@ -58,18 +60,28 @@ class Game(PresentationMixin, DebugMixin):
         random.shuffle(evidence_deck)
         self.evidence_deck = evidence_deck
 
+    #######################
+    # Player interactions #
+    #######################
+    
+    def _cycle_to_next_players_turn(self):
+        self.current_player = (self.current_player + 1) % 3
+
     def guess(self, target):
         print("You guessed " + target)
-        if target in [suspect.display_name for suspect in self.suspects if suspect.murderer is True]:
+        if target in [suspect.display_name.lower() for suspect in self.suspects if suspect.murderer is True]:
             print (target + " is the murderer")
-        elif target in [suspect.display_name for suspect in self.suspects]:
+            self._cycle_to_next_players_turn()
+        elif target in [suspect.display_name.lower() for suspect in self.suspects]:
             print (target + " is not the murderer")
+            self._cycle_to_next_players_turn()
         else:
             print(target + " is not a suspect")
 
     def skip(self):
         # deal another hand
         print("You skipped your turn ")
+        self._cycle_to_next_players_turn()
 
     def _assign_suspects(self):
         self.suspects = random.sample(self.suspects_pool, self.suspect_draw_count)

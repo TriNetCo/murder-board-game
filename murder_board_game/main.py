@@ -15,7 +15,7 @@ def main():
 
 def repl(game):
     while(True):
-        print("Ready Player 1")
+        print(f"Ready Player {game.current_player+1}")
 
         raw_input = input()
         # print("You said: " + raw_input)
@@ -31,7 +31,7 @@ def repl(game):
             print("p - pass")
 
         if command == 'g':
-            target = raw_input[2:]
+            target = raw_input[2:].lower()
             game.guess(target)
         if command == 's':
             game.present_all_game_information()
