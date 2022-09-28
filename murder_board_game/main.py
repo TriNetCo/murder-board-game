@@ -1,4 +1,5 @@
 from game import Game
+from player import guess, skip
 
 from config import load_entities_from_config
 
@@ -32,11 +33,11 @@ def repl(game):
 
         if command == 'g':
             target = raw_input[2:].lower()
-            game.guess(target)
+            guess(target, game)
         if command == 's':
             game.present_all_game_information()
         if command == 'p':
-            game.skip()
+            skip(game)
         if command == 'q':
             print("Goodbye")
             return

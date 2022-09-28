@@ -63,25 +63,9 @@ class Game(PresentationMixin, DebugMixin):
     #######################
     # Player interactions #
     #######################
-    
-    def _cycle_to_next_players_turn(self):
+
+    def cycle_to_next_players_turn(self):
         self.current_player = (self.current_player + 1) % 3
-
-    def guess(self, target):
-        print("You guessed " + target)
-        if target in [suspect.display_name.lower() for suspect in self.suspects if suspect.murderer is True]:
-            print (target + " is the murderer")
-            self._cycle_to_next_players_turn()
-        elif target in [suspect.display_name.lower() for suspect in self.suspects]:
-            print (target + " is not the murderer")
-            self._cycle_to_next_players_turn()
-        else:
-            print(target + " is not a suspect")
-
-    def skip(self):
-        # deal another hand
-        print("You skipped your turn ")
-        self._cycle_to_next_players_turn()
 
     def _assign_suspects(self):
         self.suspects = random.sample(self.suspects_pool, self.suspect_draw_count)
