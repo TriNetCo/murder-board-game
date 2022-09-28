@@ -10,11 +10,28 @@ class Game(PresentationMixin, DebugMixin):
         super().__init__()
         self.reset(new_seed)
 
+    def _load_game_config(self):
+        self.game_config = load_config("configs/game.yml")
+        for k, v in self.game_config.items():
+            setattr(self, k, v)
+
+    def _generate_suspects(self):
+        suspects_pool = init_from_config("configs/suspects.yml")
+        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
+
+    def _generate_evidence(self):
+        weapons_pool = init_from_config("configs/weapons.yml")
+        self._assign_random_evidence("weapon", weapons_pool)
+        hair_color_pool = init_from_config("configs/hair_color.yml")
+        self._assign_random_evidence("hair_color", hair_color_pool)
+        self._evidence_per_suspect_count = 2
+
     def reset(self, new_seed: int = None):
         self._load_game_config()
-        self._assign_seed(new_seed)
         self._generate_suspects()
         self._generate_evidence()
+
+        self._assign_seed(new_seed)
         self._assign_murderer()
         self._generate_evidence_deck()
 
@@ -31,10 +48,7 @@ class Game(PresentationMixin, DebugMixin):
         # deal another hand
         print("You skipped your turn ")
 
-    def _load_game_config(self):
-        self.game_config = load_config("configs/game.yml")
-        for k, v in self.game_config.items():
-            setattr(self, k, v)
+    
 
     def _assign_seed(self, new_seed):
         if new_seed:
@@ -43,16 +57,7 @@ class Game(PresentationMixin, DebugMixin):
             self.seed = random.random()
         random.seed(self.seed)
 
-    def _generate_suspects(self):
-        suspects_pool = init_from_config("configs/suspects.yml")
-        self.suspects = random.sample(suspects_pool, self.suspect_draw_count)
-
-    def _generate_evidence(self):
-        weapons_pool = init_from_config("configs/weapons.yml")
-        self._assign_random_evidence("weapon", weapons_pool)
-        hair_color_pool = init_from_config("configs/hair_color.yml")
-        self._assign_random_evidence("hair_color", hair_color_pool)
-        self._evidence_per_suspect_count = 2
+    
 
     def _assign_random_evidence(self, evidence_type: str, items: list):
         random_items = random.sample(items, self.suspect_draw_count)

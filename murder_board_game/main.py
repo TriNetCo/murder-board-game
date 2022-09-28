@@ -1,9 +1,12 @@
 from game import Game
-import yaml
+
+from config import load_entities_from_config
 
 def main():
     print()
     game = Game()
+
+    load_entities_from_config(game)
 
     game.present_all_game_information()
     # [print(suspect) for suspect in game.suspects]
