@@ -10,6 +10,8 @@ class Game(PresentationMixin, DebugMixin):
 
     def reset(self, new_seed: int = None):
         self._assign_seed(new_seed)
+        self._assign_suspects()
+        self._assign_evidence()
         self._assign_murderer()
         self._generate_evidence_deck()
 
@@ -68,3 +70,11 @@ class Game(PresentationMixin, DebugMixin):
     def skip(self):
         # deal another hand
         print("You skipped your turn ")
+
+    def _assign_suspects(self):
+        self.suspects = random.sample(self.suspects_pool, self.suspect_draw_count)
+
+    def _assign_evidence(self):
+        self._assign_random_evidence("weapon", self.weapons_pool)
+        self._assign_random_evidence("hair_color", self.hair_color_pool)
+        self._evidence_per_suspect_count = 2

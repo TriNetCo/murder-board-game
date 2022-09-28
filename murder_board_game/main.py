@@ -5,8 +5,8 @@ from config import load_entities_from_config
 def main():
     print()
     game = Game()
-
     load_entities_from_config(game)
+
     game.reset()
 
     game.present_all_game_information()
@@ -33,7 +33,8 @@ def repl(game):
         if command == 'g':
             target = raw_input[2:]
             game.guess(target)
-
+        if command == 's':
+            game.present_all_game_information()
         if command == 'p':
             game.skip()
         if command == 'q':
