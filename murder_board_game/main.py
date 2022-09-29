@@ -1,7 +1,7 @@
-from game import Game
-from player import guess, skip, list_hand
+from murder_board_game.game import Game
+from murder_board_game.player import guess, skip, list_hand
 
-from config import load_entities_from_config
+from murder_board_game.config import load_entities_from_config
 
 def main():
     print()

@@ -1,8 +1,8 @@
 import random
 import numpy as np
 
-from presentation_mixin import PresentationMixin
-from debug_mixin import DebugMixin
+from murder_board_game.presentation_mixin import PresentationMixin
+from murder_board_game.debug_mixin import DebugMixin
 
 class Game(PresentationMixin, DebugMixin):
     def __init__(self, new_seed: int = None):

@@ -1,5 +1,5 @@
-from debug_mixin import DebugMixin
-from evidence import SuspectEvidence
+from murder_board_game.debug_mixin import DebugMixin
+from murder_board_game.evidence import SuspectEvidence
 
 class Suspect(DebugMixin):
     def __init__(self, display_name: str, location: str):

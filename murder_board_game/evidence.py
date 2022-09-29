@@ -1,4 +1,4 @@
-from debug_mixin import DebugMixin
+from murder_board_game.debug_mixin import DebugMixin
 
 class Evidence(DebugMixin):
     def __init__(self, display_name: str, type: str = None):

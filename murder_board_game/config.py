@@ -1,10 +1,10 @@
 import random
 import yaml
 import sys
-from game import Game
+from murder_board_game.game import Game
 # TODO import Suspect, Evidence dynamically
-from suspect import Suspect
-from evidence import Evidence
+from murder_board_game.suspect import Suspect
+from murder_board_game.evidence import Evidence
 
 def load_entities_from_config(game: Game):
     """
