@@ -19,10 +19,7 @@ def repl(game):
         print(f"Ready Player {game.current_player+1}")
 
         raw_input = input()
-        # print("You said: " + raw_input)
-
         command = raw_input[0]
-        # print("Command: " + command)
 
         if command == "h":
             print("Commands:")
