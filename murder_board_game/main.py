@@ -1,5 +1,5 @@
 from game import Game
-from player import guess, skip
+from player import guess, skip, list_hand
 
 from config import load_entities_from_config
 
@@ -27,10 +27,13 @@ def repl(game):
         if command == "h":
             print("Commands:")
             print("h - help: Displays this message")
+            print("l - List: List the current player's hand")
             print("s - show hand: Shows the current players hand of cards")
             print("g - guess (<suspect's name>): The current player takes a guess at the suspect by their name.")
             print("p - pass")
 
+        if command == 'l':
+            list_hand(game)
         if command == 'g':
             target = raw_input[2:].lower()
             guess(target, game)

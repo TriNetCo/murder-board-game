@@ -60,13 +60,6 @@ class Game(PresentationMixin, DebugMixin):
         random.shuffle(evidence_deck)
         self.evidence_deck = evidence_deck
 
-    #######################
-    # Player interactions #
-    #######################
-
-    def cycle_to_next_players_turn(self):
-        self.current_player = (self.current_player + 1) % 3
-
     def _assign_suspects(self):
         self.suspects = random.sample(self.suspects_pool, self.suspect_draw_count)
 
